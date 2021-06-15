@@ -825,21 +825,9 @@ ngx_ts_dash_update_playlist(ngx_ts_dash_t *dash)
     ngx_ts_dash_format_datetime(avail_start_time, dash->availability_start);
     ngx_ts_dash_format_datetime(pub_time, now);
 
-    /*
-     *                 timeShiftBufferDepth
-     *       ----------------------------------------
-     *      |                                        |
-     * -----///////----------------*-----------------> now
-     *            |                |                 |
-     *             ---------------- -----------------
-     *                 liveDelay     lastSegDuration
-     *           = 2 * minBufferTime
-     *
-     */
-
     min_update = dash->conf->min_seg / 1000;
     min_buftime = dash->conf->min_seg / 1000;
-    buf_depth = 2 * min_buftime + dash->conf->max_seg / 1000 + 1;
+    buf_depth = dash->conf->nseg * min_buftime;
 
     for ( ;; ) {
         ngx_log_debug1(NGX_LOG_DEBUG_CORE, ts->log, 0,
