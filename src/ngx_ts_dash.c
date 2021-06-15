@@ -827,7 +827,7 @@ ngx_ts_dash_update_playlist(ngx_ts_dash_t *dash)
 
     min_update = dash->conf->min_seg / 1000;
     min_buftime = dash->conf->min_seg / 1000;
-    buf_depth = dash->conf->nseg * min_buftime;
+    buf_depth = dash->conf->nsegs * min_buftime;
 
     for ( ;; ) {
         ngx_log_debug1(NGX_LOG_DEBUG_CORE, ts->log, 0,
